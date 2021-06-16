@@ -15,11 +15,16 @@ public class DAO {
 	static PreparedStatement pstmt = null;
 	static ResultSet rs = null;
 	//static String driver="jdbc:mysql://35.243.126.151/kentalk?characterEncoding=UTF-8";
-	static String driver="jdbc:mysql://localhost/kentalk?characterEncoding=UTF-8";
+	//static String driver="jdbc:mysql://localhost/kentalk?characterEncoding=UTF-8";
+	static String driver="jdbc:mysql://database-1.cneya8fco798.ap-northeast-1.rds.amazonaws.com:3306/kentalk?characterEncoding=UTF-8";
+	//static String pass="";
+	static String pass="kaiki925";
+	//static String user="root";
+	static String user="admin";
 	public static void getConnect() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con=DriverManager.getConnection(driver, "root", "");
+			con=DriverManager.getConnection(driver, user, pass);
 			System.out.println("接続成功");
 		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();  

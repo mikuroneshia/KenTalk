@@ -7,9 +7,11 @@
 <title>kenTalk/ログイン</title>
 </head>
 <body>
+<h1>ログイン</h1>
+<hr/>
 <form action="/kenTalk/Login" method="post">
-name<input type="text" name="name"></br>
-password<input type="password" name="pass"></br>
+名前<input type="text" name="name"></br>
+パスワード<input type="password" name="pass"></br>
 <input type="submit" value="ログイン">
 </form>
 <a href="/kenTalk/SignUp">新規登録はこちら</a>

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +39,9 @@ public class FriendPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String friend=(String)request.getParameter("friend");
+		//String friend=(String)request.getParameter("friend");
+		String friend=new String(request.getParameter("friend").getBytes("ISO-8859-1"));
+		friend=URLDecoder.decode(friend,"UTF-8");
 		System.out.println("FriendPage.java:friend:"+friend);
 		request.setAttribute("friend", friend);
 		String accountName=(String)request.getParameter("accountName");

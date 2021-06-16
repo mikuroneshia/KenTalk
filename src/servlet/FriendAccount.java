@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,7 +35,9 @@ public class FriendAccount extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String friend=request.getParameter("friend");
+		//String friend=request.getParameter("friend");
+		String friend=new String(request.getParameter("friend").getBytes("ISO-8859-1"));
+		friend=URLDecoder.decode(friend,"UTF-8");
 		Account fAccount=DAO.getAccount(friend);
 		HttpSession session=request.getSession();
 		session.setAttribute("friendAccount", fAccount);

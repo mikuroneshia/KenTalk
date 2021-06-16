@@ -74,7 +74,13 @@ public class Othello extends HttpServlet {
 				if(othello.getComputer1()&&othello.getTurn()==1) {
 					int level=othello.getCom1Lv();
 					int[] gyoretu=null;
-					if(level==14) {
+					if(level==16) {
+						gyoretu=OthelloComputer3.othelloCom316(othello);
+					}
+					else if(level==15) {
+						gyoretu=OthelloComputer3.othelloCom315(othello);
+					}
+					else if(level==14) {
 						gyoretu= OthelloComputer3.othelloCom314(othello);
 					}else if(level==13) {
 						gyoretu= OthelloComputer3.othelloCom313(othello);
@@ -90,6 +96,18 @@ public class Othello extends HttpServlet {
 						gyoretu= OthelloComputer3.othelloCom38(othello);
 					}else if(level==7) {
 						gyoretu= OthelloComputer3.othelloCom37(othello);
+					}else if(level==6) {
+						gyoretu= OthelloComputer3.othelloCom36(othello);
+					}else if(level==5) {
+						gyoretu= OthelloComputer3.othelloCom35(othello);
+					}else if(level==4) {
+						gyoretu= OthelloComputer3.othelloCom34(othello);
+					}else if(level==3) {
+						gyoretu= OthelloComputer3.othelloCom33(othello);
+					}else if(level==2) {
+						gyoretu= OthelloComputer3.othelloCom32(othello);
+					}else if(level==1) {
+						gyoretu= OthelloComputer3.othelloCom31(othello);
 					}
 					if(othello.getComputer2()) {
 						request.setAttribute("com", true);
@@ -108,7 +126,7 @@ public class Othello extends HttpServlet {
 						request.setAttribute("gyo", gyoretu[0]);
 						request.setAttribute("retu", gyoretu[1]);
 					}
-					if(othello.none0()) {
+					if(othello.none0()||othello.all(othello.getBanmen())) {
 						String result=othello.result();
 						othello.setResult(true);
 						request.setAttribute("result", result);
@@ -120,7 +138,13 @@ public class Othello extends HttpServlet {
 					}
 					int level=othello.getCom2Lv();
 					int[] gyoretu=null;
-					if(level==14) {
+					if(level==16) {
+						gyoretu=OthelloComputer3.othelloCom316(othello);
+					}
+					else if(level==15) {
+						gyoretu=OthelloComputer3.othelloCom315(othello);
+					}
+					else if(level==14) {
 						gyoretu= OthelloComputer3.othelloCom314(othello);
 					}else if(level==13) {
 						gyoretu= OthelloComputer3.othelloCom313(othello);
@@ -136,6 +160,18 @@ public class Othello extends HttpServlet {
 						gyoretu= OthelloComputer3.othelloCom38(othello);
 					}else if(level==7) {
 						gyoretu= OthelloComputer3.othelloCom37(othello);
+					}else if(level==6) {
+						gyoretu= OthelloComputer3.othelloCom36(othello);
+					}else if(level==5) {
+						gyoretu= OthelloComputer3.othelloCom35(othello);
+					}else if(level==4) {
+						gyoretu= OthelloComputer3.othelloCom34(othello);
+					}else if(level==3) {
+						gyoretu= OthelloComputer3.othelloCom33(othello);
+					}else if(level==2) {
+						gyoretu= OthelloComputer3.othelloCom32(othello);
+					}else if(level==1) {
+						gyoretu= OthelloComputer3.othelloCom31(othello);
 					}
 					if(gyoretu==null) {
 						request.setAttribute("comPass", "comPass");
@@ -151,7 +187,7 @@ public class Othello extends HttpServlet {
 						request.setAttribute("gyo", gyoretu[0]);
 						request.setAttribute("retu", gyoretu[1]);
 					}
-					if(othello.none0()) {
+					if(othello.none0()||othello.all(othello.getBanmen())) {
 						String result=othello.result();
 						othello.setResult(true);
 						request.setAttribute("result", result);

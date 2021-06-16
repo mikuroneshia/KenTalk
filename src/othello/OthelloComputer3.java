@@ -11,6 +11,406 @@ public class OthelloComputer3 {
 	static ArrayList<ArrayList<Integer>> lList;
 	static ArrayList<ArrayList<Integer>> octagonList;
 	static ArrayList<ArrayList<Integer>> arOctagonList;
+	static ArrayList<ArrayList<Integer>> putArKadList;
+	
+	public static int[] othelloCom31(OthelloJSP othello) {
+		int[] gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		vBanmen=othello.getVBanmen();
+		canPut=othello.vReverse();
+		arkadListAdd(othello);
+		if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				gyo=safeList.get(0).get(0);
+				retu=safeList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				gyo=arKadList.get(0).get(0);
+				retu=arKadList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}
+		else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+			if(othello.getTurnCount()<60) {
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return null;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+
+	}
+	
+	public static int[] othelloCom32(OthelloJSP othello) {
+		int[] gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		vBanmen=othello.getVBanmen();
+		canPut=othello.vReverse();
+		//arkadListAdd(othello);
+		if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+			if(othello.getTurnCount()<60) {
+				//ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				///int gyo=minList.get(0).get(0);
+				//int retu=minList.get(0).get(1);
+				int gyo=canPut.get(0).get(0);
+				int retu=canPut.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				gyo=safeList.get(0).get(0);
+				retu=safeList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				gyo=arKadList.get(0).get(0);
+				retu=arKadList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return null;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+
+	}
+	
+	public static int[] othelloCom33(OthelloJSP othello) {
+		int[] gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		vBanmen=othello.getVBanmen();
+		canPut=othello.vReverse();
+		//arkadListAdd(othello);
+		if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+			if(othello.getTurnCount()<0) {
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				gyo=safeList.get(0).get(0);
+				retu=safeList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				gyo=arKadList.get(0).get(0);
+				retu=arKadList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return null;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+
+	}
+	
+	public static int[] othelloCom34(OthelloJSP othello) {
+		int[] gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		vBanmen=othello.getVBanmen();
+		canPut=othello.vReverse();
+		//arkadListAdd(othello);
+		if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+			if(othello.getTurnCount()<60) {
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				gyo=safeList.get(0).get(0);
+				retu=safeList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				gyo=arKadList.get(0).get(0);
+				retu=arKadList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return null;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+
+	}
+	
+	public static int[] othelloCom35(OthelloJSP othello) {
+		int[] gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		vBanmen=othello.getVBanmen();
+		canPut=othello.vReverse();
+		//arkadListAdd(othello);
+		if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+			if(othello.getTurnCount()<40) {
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				gyo=safeList.get(0).get(0);
+				retu=safeList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				gyo=arKadList.get(0).get(0);
+				retu=arKadList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return null;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+
+	}
+	
+	public static int[] othelloCom36(OthelloJSP othello) {
+		int[] gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		vBanmen=othello.getVBanmen();
+		canPut=othello.vReverse();
+		arkadListAdd(othello);
+		if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+			if(othello.getTurnCount()<40) {
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				gyo=safeList.get(0).get(0);
+				retu=safeList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				gyo=arKadList.get(0).get(0);
+				retu=arKadList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return null;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+
+	}
 
 	public static int[] othelloCom37(OthelloJSP othello) {
 		int[] gyoretu=new int[2];
@@ -285,7 +685,14 @@ public class OthelloComputer3 {
 		//arOctagonList=new ArrayList<>();
 		//if(othello.getTurnCount()>36) {
 		canPut=othello.vReverse();
-		canPut=othelloCom00(othello,canPut,"0");
+		canPut=kadForecast(othello, canPut);
+		//canPut=avoidRedZone2(canPut);
+		if(othello.getTurnCount()>=42) {
+			canPut=othelloCom00(othello,canPut,"0");
+		}
+		if(canPut.isEmpty()) {
+			canPut=othello.vReverse();
+		}
 		System.out.print("turnCount:"+othello.getTurnCount()+"  canWin:[");
 		for(ArrayList<Integer>put:canPut) {
 			System.out.print("["+put.get(0)+" "+put.get(1)+"],");
@@ -517,6 +924,7 @@ public class OthelloComputer3 {
 			retu=canPut.get(0).get(1);
 		}
 		canPut=kadForecast(othello,canPut);
+		canPut=avoidRedZone2(canPut);
 		if(canPut.isEmpty()/*||gyo==0&&retu==1||gyo==1&&retu==1||gyo==1&&retu==0||
 				gyo==6&&retu==0||gyo==6&&retu==1||gyo==7&&retu==1||
 				gyo==6&&retu==7||gyo==6&&retu==6||gyo==7&&retu==6||
@@ -610,39 +1018,14 @@ public class OthelloComputer3 {
 
 	public static int[] othelloCom313(OthelloJSP othello) {
 		int[] gyoretu=new int[2];
-		int gyo=0;
-		int retu=0;
 		canPut=new ArrayList<>();
 		kadList=new ArrayList<>();
 		octagonList=new ArrayList<>();
 		arKadList=new ArrayList<>();
+		putArKadList=new ArrayList<>();
 		//arOctagonList=new ArrayList<>();
 		vBanmen=othello.getVBanmen();
 		canPut=othello.vReverse();
-		/*int maxLength=0;
-		ArrayList<ArrayList<Integer>>lengthList=new ArrayList<>();
-		for(ArrayList<Integer>put:canPut) {
-			vBanmen=othello.getVBanmen();
-			int g=put.get(0);
-			int r=put.get(1);
-			int canPutLength=getCanPutLength(othello,g,r,vBanmen,false);
-			put.add(canPutLength);
-			lengthList.add(put);
-			if(canPutLength>maxLength) {
-				maxLength=canPutLength;
-			}
-		}
-		canPut=new ArrayList<>();
-		for(ArrayList<Integer>l:lengthList) {
-			if(l.get(3)==maxLength) {
-				canPut.add(l);
-			}
-		}
-		System.out.print("maxLength:"+maxLength+"canPut:[");
-		for(ArrayList<Integer>put:canPut) {
-			System.out.print("["+put.get(0)+" "+put.get(1)+"],");
-		}
-		System.out.println("]");*/
 		int minLength=30;
 		ArrayList<ArrayList<Integer>>lengthList=new ArrayList<>();
 		for(ArrayList<Integer>put:canPut) {
@@ -667,41 +1050,65 @@ public class OthelloComputer3 {
 			System.out.print("["+put.get(0)+" "+put.get(1)+"],");
 		}
 		System.out.println("]");
-		if(!canPut.isEmpty()&&canPut.size()==1) {
-			gyo=canPut.get(0).get(0);
-			retu=canPut.get(0).get(1);
-		}
-		canPut=kadForecast(othello,canPut);
-		if(canPut.isEmpty()/*||gyo==0&&retu==1||gyo==1&&retu==1||gyo==1&&retu==0||
+		boolean hantei=false;
+		for(ArrayList<Integer>put:canPut) {
+			int gyo=put.get(0);
+			int retu=put.get(1);
+			if(gyo==0&&retu==1||gyo==1&&retu==1||gyo==1&&retu==0||
 				gyo==6&&retu==0||gyo==6&&retu==1||gyo==7&&retu==1||
 				gyo==6&&retu==7||gyo==6&&retu==6||gyo==7&&retu==6||
-				gyo==0&&retu==6||gyo==1&&retu==6||gyo==1&&retu==7*/
-				) {
+				gyo==0&&retu==6||gyo==1&&retu==6||gyo==1&&retu==7) {
+				hantei=false;
+			}else {
+				hantei=true;
+				break;
+			}
+
+		}
+		if(hantei==false) {
 			canPut=othello.vReverse();
 		}
+		canPut=kadForecast(othello,canPut);
+
+		putArKad(othello);
 		kadListAdd();
+		canPut=kadForecast(othello,canPut);
 		octagonListAdd();
 		arkadListAdd(othello);
-		if(!kadList.isEmpty()) {
-			gyo=kadList.get(0).get(0);
-			retu=kadList.get(0).get(1);
+		if(canPut.isEmpty()&&kadList.isEmpty()&&arKadList.isEmpty()&&putArKadList.isEmpty()) {
+			canPut=othello.vReverse();
+		}
+		//arOctagonListAdd(othello);
+		if(!putArKadList.isEmpty()) {
+			int gyo=putArKadList.get(0).get(0);
+			int retu=putArKadList.get(0).get(1);
 			othello.getBanmen()[gyo][retu]=othello.getTurn();
 			othello.reverse(gyo,retu);
 			gyoretu[0]=gyo;
 			gyoretu[1]=retu;
-		}else if(!octagonList.isEmpty()) {
+		}
+		else if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}
+		else if(!octagonList.isEmpty()) {
 			if(othello.getTurnCount()<44) {
 				ArrayList<ArrayList<Integer>>minList=listMin(octagonList);
-				gyo=minList.get(0).get(0);
-				retu=minList.get(0).get(1);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
 				othello.getBanmen()[gyo][retu]=othello.getTurn();
 				othello.reverse(gyo,retu);
 				gyoretu[0]=gyo;
 				gyoretu[1]=retu;
 			}else {
 				ArrayList<ArrayList<Integer>>maxList=listMin(octagonList);
-				gyo=maxList.get(0).get(0);
-				retu=maxList.get(0).get(1);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
 				othello.getBanmen()[gyo][retu]=othello.getTurn();
 				othello.reverse(gyo,retu);
 				gyoretu[0]=gyo;
@@ -709,11 +1116,13 @@ public class OthelloComputer3 {
 			}
 		}
 		else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+
 			if(othello.getTurnCount()<40) {
 				ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
 				ArrayList<ArrayList<Integer>>minList=listMin(nakawari);
-				gyo=minList.get(0).get(0);
-				retu=minList.get(0).get(1);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
 				othello.getBanmen()[gyo][retu]=othello.getTurn();
 				othello.reverse(gyo,retu);
 				gyoretu[0]=gyo;
@@ -721,15 +1130,36 @@ public class OthelloComputer3 {
 			}else {
 				ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
 				ArrayList<ArrayList<Integer>>maxList=listMax(nakawari);
-				gyo=maxList.get(0).get(0);
-				retu=maxList.get(0).get(1);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
 				othello.getBanmen()[gyo][retu]=othello.getTurn();
 				othello.reverse(gyo,retu);
 				gyoretu[0]=gyo;
 				gyoretu[1]=retu;
 			}
+		/*}else if(!arOctagonList.isEmpty()) {
+			if(othello.getTurnCount()<40) {
+				ArrayList<ArrayList<Integer>>minList=listMin(arOctagonList);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(arOctagonList);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}*/
 		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
 			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
 			if(!safeList.isEmpty()) {
 				ArrayList<Integer>array=avoidRedZone(safeList);
 				gyo=array.get(0);
@@ -759,7 +1189,529 @@ public class OthelloComputer3 {
 	}
 
 	public static int[] othelloCom314(OthelloJSP othello) {
-		return null;
+		int[] gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		octagonList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		putArKadList=new ArrayList<>();
+		//arOctagonList=new ArrayList<>();
+		vBanmen=othello.getVBanmen();
+		canPut=othello.vReverse();
+		int minLength=30;
+		ArrayList<ArrayList<Integer>>lengthList=new ArrayList<>();
+
+		System.out.println("]");
+		if(othello.getTurnCount()>=42) {
+			canPut=othelloCom00(othello,canPut,"0");
+		}else {
+			for(ArrayList<Integer>put:canPut) {
+				vBanmen=othello.getVBanmen();
+				int g=put.get(0);
+				int r=put.get(1);
+				int canPutLength=getCanPutLength(othello,g,r,vBanmen,true);
+				put.add(canPutLength);
+				lengthList.add(put);
+				if(canPutLength<minLength) {
+					minLength=canPutLength;
+				}
+			}
+			ArrayList<ArrayList<Integer>>canPut=new ArrayList<>();
+			for(ArrayList<Integer>l:lengthList) {
+				if(l.get(3)==minLength) {
+					canPut.add(l);
+				}
+			}
+			System.out.print("minLength:"+minLength+"canPut:[");
+			for(ArrayList<Integer>put:canPut) {
+				System.out.print("["+put.get(0)+" "+put.get(1)+"],");
+			}
+			if(canPut.size()==1) {
+				int gyo=canPut.get(0).get(0);
+				int retu=canPut.get(0).get(1);
+				if(gyo==0&&retu==1||gyo==1&&retu==1||gyo==1&&retu==0||
+						gyo==6&&retu==0||gyo==6&&retu==1||gyo==7&&retu==1||
+						gyo==6&&retu==7||gyo==6&&retu==6||gyo==7&&retu==6||
+						gyo==0&&retu==6||gyo==1&&retu==6||gyo==1&&retu==7) {
+					canPut=othello.vReverse();
+				}
+			}
+		}
+
+		putArKad(othello);
+		kadListAdd();
+		//canPut=kadForecast(othello,canPut);
+		octagonListAdd();
+		arkadListAdd(othello);
+		if(canPut.isEmpty()&&kadList.isEmpty()&&arKadList.isEmpty()&&putArKadList.isEmpty()) {
+			canPut=othello.vReverse();
+		}
+		//arOctagonListAdd(othello);
+		if(!putArKadList.isEmpty()) {
+			int gyo=putArKadList.get(0).get(0);
+			int retu=putArKadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}
+		else if(!kadList.isEmpty()) {
+			//System.out.println("kad");
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+		}
+		else if(!octagonList.isEmpty()) {
+			if(othello.getTurnCount()<44) {
+				ArrayList<ArrayList<Integer>>minList=listMin(octagonList);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMin(octagonList);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}
+		else if(!canPut.isEmpty()){
+			//System.out.println("normal");
+			if(othello.getTurnCount()<40) {
+				//ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				//ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		/*}else if(!arOctagonList.isEmpty()) {
+			if(othello.getTurnCount()<40) {
+				ArrayList<ArrayList<Integer>>minList=listMin(arOctagonList);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMax(arOctagonList);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}*/
+		}else if(!arKadList.isEmpty()){
+			//System.out.println("arkad");
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				ArrayList<Integer>array=avoidRedZone(safeList);
+				gyo=array.get(0);
+				retu=array.get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<Integer>array=avoidRedZone(arKadList);
+				gyo=array.get(0);
+				retu=array.get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return null;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+
+	}
+
+	public static int[] othelloCom315(OthelloJSP othello) {
+		int[]gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		octagonList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		canPut=othello.vReverse();
+		System.out.println("turnCount:"+othello.getTurnCount());
+		System.out.print("canPut[");
+		for(ArrayList<Integer>x:canPut) {
+			System.out.print("["+x.get(0)+","+x.get(1)+"],");
+		}
+		System.out.println("]");
+		if(othello.getTurnCount()>=34) {
+			canPut=othelloCom00(othello,canPut,"0");
+			System.out.print("maxPut[");
+			for(ArrayList<Integer>x:canPut) {
+				System.out.print("["+x.get(0)+","+x.get(1)+"],");
+			}
+			System.out.println("]");
+		}else {
+			int minLength=30;
+			ArrayList<ArrayList<Integer>>lengthList=new ArrayList<>();
+			for(ArrayList<Integer>put:canPut) {
+				vBanmen=othello.getVBanmen();
+				int g=put.get(0);
+				int r=put.get(1);
+				int canPutLength=getCanPutLength(othello,g,r,vBanmen,true);
+				put.add(canPutLength);
+				lengthList.add(put);
+				if(canPutLength<minLength) {
+					minLength=canPutLength;
+				}
+			}
+			canPut=new ArrayList<>();
+			for(ArrayList<Integer>l:lengthList) {
+				if(l.get(3)==minLength) {
+					canPut.add(l);
+				}
+			}
+			System.out.print("minLength:"+minLength+"canPut:[");
+			for(ArrayList<Integer>put:canPut) {
+				System.out.print("["+put.get(0)+" "+put.get(1)+"],");
+			}
+			System.out.println("]");
+			/*if(!canPut.isEmpty()&&canPut.size()==1) {
+				int gyo=canPut.get(0).get(0);
+				int retu=canPut.get(0).get(1);
+				canPut=kadForecast(othello,canPut);
+				if(canPut.isEmpty()||gyo==0&&retu==1||gyo==1&&retu==1||gyo==1&&retu==0||
+						gyo==6&&retu==0||gyo==6&&retu==1||gyo==7&&retu==1||
+						gyo==6&&retu==7||gyo==6&&retu==6||gyo==7&&retu==6||
+						gyo==0&&retu==6||gyo==1&&retu==6||gyo==1&&retu==7
+						) {
+					canPut=othello.vReverse();
+				}
+			}*/
+			boolean hantei=false;
+			for(ArrayList<Integer>put:canPut) {
+				int gyo=put.get(0);
+				int retu=put.get(1);
+				if(gyo==0&&retu==1||gyo==1&&retu==1||gyo==1&&retu==0||
+					gyo==6&&retu==0||gyo==6&&retu==1||gyo==7&&retu==1||
+					gyo==6&&retu==7||gyo==6&&retu==6||gyo==7&&retu==6||
+					gyo==0&&retu==6||gyo==1&&retu==6||gyo==1&&retu==7) {
+					hantei=false;
+				}else {
+					hantei=true;
+					break;
+				}
+
+			}
+			if(hantei==false) {
+				canPut=othello.vReverse();
+			}
+
+		}
+		if(canPut.isEmpty()) {
+			canPut=othello.vReverse();
+		}
+		kadListAdd();
+		octagonListAdd();
+		arkadListAdd(othello);
+		if(othello.getTurnCount()==36||othello.getTurnCount()==46) {
+			System.out.println("alertCanPut:");
+			System.out.print("maxPut[");
+			for(ArrayList<Integer>x:canPut) {
+				System.out.print("["+x.get(0)+","+x.get(1)+"],");
+			}
+			System.out.println("]");
+		}
+		if(!kadList.isEmpty()) {
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+
+		}else if(!octagonList.isEmpty()) {
+			if(othello.getTurnCount()<44) {
+				ArrayList<ArrayList<Integer>>minList=listMin(octagonList);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMin(octagonList);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}
+		else if(!canPut.isEmpty()){
+			if(othello.getTurnCount()<40) {
+				//ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				//ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else if(!arKadList.isEmpty()){
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				ArrayList<Integer>array=avoidRedZone(safeList);
+				gyo=array.get(0);
+				retu=array.get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<Integer>array=avoidRedZone(arKadList);
+				gyo=array.get(0);
+				retu=array.get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return gyoretu;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
+	}
+	
+	public static int[] othelloCom316(OthelloJSP othello) {
+		int[]gyoretu=new int[2];
+		canPut=new ArrayList<>();
+		kadList=new ArrayList<>();
+		octagonList=new ArrayList<>();
+		arKadList=new ArrayList<>();
+		canPut=othello.vReverse();
+		System.out.println("turnCount:"+othello.getTurnCount());
+		/*System.out.print("canPut[");
+		for(ArrayList<Integer>x:canPut) {
+			System.out.print("["+x.get(0)+","+x.get(1)+"],");
+		}*/
+		System.out.println("]");
+		if(othello.getTurnCount()>=30) {
+			canPut=othelloCom00(othello,canPut,"0");
+			/*System.out.print("maxPut[");
+			for(ArrayList<Integer>x:canPut) {
+				System.out.print("["+x.get(0)+","+x.get(1)+"],");
+			}
+			System.out.println("]");*/
+		}else {
+			int minLength=30;
+			ArrayList<ArrayList<Integer>>opponentlengthList=new ArrayList<>();
+			for(ArrayList<Integer>put:canPut) {
+				vBanmen=othello.getVBanmen();
+				int g=put.get(0);
+				int r=put.get(1);
+				int canPutLength=getCanPutLength(othello,g,r,vBanmen,true);
+				put.add(canPutLength);
+				opponentlengthList.add(put);
+				if(canPutLength<minLength) {
+					minLength=canPutLength;
+				}
+			}
+			System.out.print("minLength:"+minLength+"lengthList:[");
+			for(ArrayList<Integer>put:opponentlengthList) {
+				System.out.print("["+put.get(0)+" "+put.get(1)+"],");
+			}
+			System.out.println("]");
+			int maxLength=0;
+			ArrayList<ArrayList<Integer>>ownlengthList=new ArrayList<>();
+			for(ArrayList<Integer>put:canPut) {
+				vBanmen=othello.getVBanmen();
+				int g=put.get(0);
+				int r=put.get(1);
+				int canPutLength=getCanPutLength(othello,g,r,vBanmen,false);
+				put.add(canPutLength);
+				ownlengthList.add(put);
+				if(canPutLength>maxLength) {
+					maxLength=canPutLength;
+				}
+			}
+			System.out.print("maxLength:"+maxLength+"maxlengthList:[");
+			for(ArrayList<Integer>put:ownlengthList) {
+				System.out.print("["+put.get(0)+" "+put.get(1)+"],");
+			}
+			System.out.println("]");
+			ArrayList<ArrayList<Integer>>bestlengthList=new ArrayList<>();
+			int best=-10;
+			for(int i=0;i<ownlengthList.size();i++) {
+					int bestlength=ownlengthList.get(i).get(4)-opponentlengthList.get(i).get(3);
+					ownlengthList.get(i).add(bestlength);
+					bestlengthList.add(ownlengthList.get(i));
+					if(bestlength>best) {
+						best=bestlength;
+					}
+			}
+			canPut=new ArrayList<>();
+			for(ArrayList<Integer>b:bestlengthList) {
+				if(best==b.get(5)) {
+					canPut.add(b);
+				}
+			}
+			System.out.print("bestLength:"+best+"canPut:[");
+			for(ArrayList<Integer>put:canPut) {
+				System.out.print("["+put.get(0)+" "+put.get(1)+"],");
+			}
+			System.out.println("]");
+			
+			boolean hantei=false;
+			for(ArrayList<Integer>put:canPut) {
+				int gyo=put.get(0);
+				int retu=put.get(1);
+				if(gyo==0&&retu==1||gyo==1&&retu==1||gyo==1&&retu==0||
+					gyo==6&&retu==0||gyo==6&&retu==1||gyo==7&&retu==1||
+					gyo==6&&retu==7||gyo==6&&retu==6||gyo==7&&retu==6||
+					gyo==0&&retu==6||gyo==1&&retu==6||gyo==1&&retu==7) {
+					hantei=false;
+				}else {
+					hantei=true;
+					break;
+				}
+
+			}
+			if(hantei==false) {
+				canPut=othello.vReverse();
+			}
+		}
+		if(canPut.isEmpty()) {
+			canPut=othello.vReverse();
+		}
+		kadListAdd();
+		octagonListAdd();
+		arkadListAdd(othello);
+		if(othello.getTurnCount()==36||othello.getTurnCount()==46) {
+			System.out.println("alertCanPut:");
+			System.out.print("maxPut[");
+			for(ArrayList<Integer>x:canPut) {
+				System.out.print("["+x.get(0)+","+x.get(1)+"],");
+			}
+			System.out.println("]");
+		}
+		if(!kadList.isEmpty()) {
+			int gyo=kadList.get(0).get(0);
+			int retu=kadList.get(0).get(1);
+			othello.getBanmen()[gyo][retu]=othello.getTurn();
+			othello.reverse(gyo,retu);
+			gyoretu[0]=gyo;
+			gyoretu[1]=retu;
+
+		}else if(!octagonList.isEmpty()) {
+			if(othello.getTurnCount()<44) {
+				ArrayList<ArrayList<Integer>>minList=listMin(octagonList);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<ArrayList<Integer>>maxList=listMin(octagonList);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}
+		else if(!canPut.isEmpty()){
+			if(othello.getTurnCount()<40) {
+				//ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
+				ArrayList<ArrayList<Integer>>minList=listMin(canPut);
+				int gyo=minList.get(0).get(0);
+				int retu=minList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				//ArrayList<ArrayList<Integer>>nakawari=nakawari(canPut,othello.getVBanmen());
+				ArrayList<ArrayList<Integer>>maxList=listMax(canPut);
+				int gyo=maxList.get(0).get(0);
+				int retu=maxList.get(0).get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else if(!arKadList.isEmpty()){
+			ArrayList<ArrayList<Integer>>safeList=arKadForecast(othello);
+			int gyo;
+			int retu;
+			if(!safeList.isEmpty()) {
+				ArrayList<Integer>array=avoidRedZone(safeList);
+				gyo=array.get(0);
+				retu=array.get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}else {
+				ArrayList<Integer>array=avoidRedZone(arKadList);
+				gyo=array.get(0);
+				retu=array.get(1);
+				othello.getBanmen()[gyo][retu]=othello.getTurn();
+				othello.reverse(gyo,retu);
+				gyoretu[0]=gyo;
+				gyoretu[1]=retu;
+			}
+		}else {
+			othello.updateTurn();
+			othello.plusPassCount();
+			return gyoretu;
+		}
+		othello.updateTurn();
+		othello.setPassCount(0);
+		return gyoretu;
 	}
 
 	public static ArrayList<ArrayList<Integer>>othelloCom00(OthelloJSP othello,
@@ -789,13 +1741,16 @@ public class OthelloComputer3 {
 				othello.updateTurn();
 				int whileCount=0;
 				while(true) {
+					int[][]com0Banmen=othelloCom0(othello,banmen);
+					
 					whileCount++;
 					for(int i=0;i<8;i++) {
 						for(int j=0;j<8;j++) {
 							if(com.equals("0")) {
-								banmen[i][j]=othelloCom0(othello,banmen)[i][j];
+								banmen[i][j]=com0Banmen[i][j];
 							}else if(com.equals("X13")) {
-								banmen[i][j]=othelloComX13(othello,banmen)[i][j];
+								int[][]comX13Banmen=othelloComX13(othello,banmen);
+								banmen[i][j]=comX13Banmen[i][j];
 							}
 						}
 					}
@@ -844,6 +1799,10 @@ public class OthelloComputer3 {
 				System.out.println("whiteMax:"+whiteMax);
 			}
 			othello.setTurn(turn);
+			canPut=new ArrayList<>();
+			kadList=new ArrayList<>();
+			octagonList=new ArrayList<>();
+			arKadList=new ArrayList<>();
 			return canWin;
 
 	}
@@ -917,7 +1876,7 @@ public class OthelloComputer3 {
 			return banmen;
 		}
 		othello.updateTurn();
-		othello.setPassCount(2);
+		othello.setPassCount(0);
 		return banmen;
 	}
 
@@ -1026,7 +1985,7 @@ public class OthelloComputer3 {
 			return banmen;
 		}
 		othello.updateTurn();
-		othello.setPassCount(2);
+		othello.setPassCount(0);
 		return banmen;
 	}
 
@@ -1432,6 +2391,21 @@ public class OthelloComputer3 {
 		return gyoretu;
 	}
 
+	public static ArrayList<ArrayList<Integer>>avoidRedZone2(ArrayList<ArrayList<Integer>>list){
+		ArrayList<ArrayList<Integer>>gyoretuList=new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer>gyoretu=new ArrayList<>();
+		for(ArrayList<Integer>l:list) {
+			int gyo=l.get(0);
+			int retu=l.get(1);
+			if((gyo==1&&retu==1)||(gyo==1&&retu==6)||(gyo==6&&retu==1)||(gyo==6&&retu==6)) {
+				continue;
+			}
+			gyoretu.add(gyo);
+			gyoretu.add(retu);
+		}
+		return gyoretuList;
+	}
+
 	public static ArrayList<ArrayList<Integer>> nakawari(ArrayList<ArrayList<Integer>>canPut ,int[][] banmen){
 		ArrayList<ArrayList<Integer>>nakawari=new ArrayList<>();
 		int max=0;
@@ -1481,27 +2455,71 @@ public class OthelloComputer3 {
 	}
 	public static int getCanPutLength(OthelloJSP othello,int gyo,int retu,int[][]banmen,boolean reverseOrder) {
 		int canPutLength=0;
+		banmen[gyo][retu]=othello.getTurn();
+		int[][]vBanmen=othello.vReverse(gyo,retu,banmen);
+		for(int i=0;i<8;i++) {
+			for(int j=0;j<8;j++) {
+				banmen[i][j]=vBanmen[i][j];
+			}
+		}
 		if(reverseOrder==false) {
-			banmen[gyo][retu]=othello.getTurn();
-			for(int i=0;i<8;i++) {
-				for(int j=0;j<8;j++) {
-					banmen[i][j]=othello.vReverse(gyo,retu,banmen)[i][j];
-				}
-			}
-			canPutLength=othello.getCanPut(banmen).size();
+			canPutLength=othello.vReverse(banmen).size();
 		}else {
-			banmen[gyo][retu]=othello.getTurn();
-			for(int i=0;i<8;i++) {
-				for(int j=0;j<8;j++) {
-					banmen[i][j]=othello.vReverse(gyo,retu,banmen)[i][j];
-				}
-			}
+			othello.vBanmenhyoji(banmen);
 			othello.updateTurn();
-			canPutLength=othello.getCanPut(banmen).size();
+			ArrayList<ArrayList<Integer>>canPut=othello.vReverse(banmen);
+
+			canPutLength=canPut.size();
+			System.out.print("[");
+			for(ArrayList<Integer>x:canPut) {
+				System.out.print("["+x.get(0)+","+x.get(1)+"],");
+			}
+			System.out.println("]");
+			System.out.println("canPutLength:"+canPutLength);
+
 			othello.updateTurn();
 		}
 
 		return canPutLength;
+	}
+	public static void putArKad(OthelloJSP othello) {
+		vBanmen=othello.getVBanmen();
+		if(vBanmen[0][0]==othello.getTurn()) {
+			for(ArrayList<Integer>put:canPut) {
+				int gyo=put.get(0);
+				int retu=put.get(1);
+				if(gyo==0&&retu==1||gyo==1&&retu==0||gyo==1&&retu==1) {
+					putArKadList.add(put);
+				}
+			}
+		}
+		if(vBanmen[0][7]==othello.getTurn()) {
+			for(ArrayList<Integer>put:canPut) {
+				int gyo=put.get(0);
+				int retu=put.get(1);
+				if(gyo==0&&retu==6||gyo==1&&retu==6||gyo==1&&retu==7) {
+					putArKadList.add(put);
+				}
+			}
+		}
+		if(vBanmen[7][0]==othello.getTurn()) {
+			for(ArrayList<Integer>put:canPut) {
+				int gyo=put.get(0);
+				int retu=put.get(1);
+				if(gyo==7&&retu==0||gyo==7&&retu==1||gyo==6&&retu==1) {
+					putArKadList.add(put);
+				}
+			}
+		}
+		if(vBanmen[7][7]==othello.getTurn()) {
+			for(ArrayList<Integer>put:canPut) {
+				int gyo=put.get(0);
+				int retu=put.get(1);
+				if(gyo==7&&retu==6||gyo==6&&retu==6||gyo==6&&retu==7) {
+					putArKadList.add(put);
+				}
+			}
+		}
 	}
 
 }

@@ -18,11 +18,11 @@ String accountName=account.getName();
 <title>kenTalk/アカウント情報</title>
 </head>
 <body>
-name:<%=name %></br>
-age:<%=age %></br>
-birthplace:<%=birthplace %></br>
-birthday:<%=birthday %></br>
-hobby:<%=hobby %></br>
+名前:<%=name %></br>
+年齢:<%=age %></br>
+出身地:<%=birthplace %></br>
+生年月日:<%=birthday %></br>
+趣味:<%=hobby %></br>
 <a href="FriendPage?friend=<%=name %>&accountName=<%=accountName%>">フレンドのページへ</a>
 </body>
 </html>

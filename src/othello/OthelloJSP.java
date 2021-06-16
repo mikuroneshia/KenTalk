@@ -141,12 +141,12 @@ public class OthelloJSP {
 
 	public void vBanmenhyoji(int[][]vBanmen) {
 		System.out.print("  ");
-		for(int i=1;i<=8;i++) {
+		for(int i=0;i<=7;i++) {
 			System.out.print(i+" ");
 		}
 		System.out.println();
 		for(int i=0;i<8;i++) {
-			System.out.print(i+1+" ");
+			System.out.print(i+" ");
 			for(int j=0;j<8;j++) {
 				if(vBanmen[i][j]==1) {
 						System.out.print("黒");
@@ -777,6 +777,183 @@ public class OthelloJSP {
 		return canPut;
 	}
 
+	public ArrayList<ArrayList<Integer>> vReverse(int[][]vBanmen) {
+		ArrayList<ArrayList<Integer>> emptyList=new ArrayList<>();
+		int[][]vBanmenClone=new int[8][8];
+		for(int i=0;i<8;i++) {
+			for(int j=0;j<8;j++) {
+				vBanmenClone[i][j]=vBanmen[i][j];
+				if(vBanmen[i][j]==0) {
+					ArrayList<Integer> subEmptyList=new ArrayList<>();
+					subEmptyList.add(i);
+					subEmptyList.add(j);
+					emptyList.add(subEmptyList);
+				}
+			}
+		}
+		ArrayList<ArrayList<Integer>>canPut=new ArrayList<>();
+		for(ArrayList<Integer> emp:emptyList) {
+			for(int i=0;i<8;i++) {
+				for(int j=0;j<8;j++) {
+					vBanmen[i][j]=vBanmenClone[i][j];
+				}
+			}
+			int reverseCount=0;
+			int gyo=emp.get(0);
+			int retu=emp.get(1);
+			int reverseGyo=gyo;
+			int reverseRetu=retu;
+			//下
+			for(int i=1;gyo+i<8;i++) {
+				if(vBanmen[gyo+i][retu]==0) {
+					break;
+				}else if(vBanmen[gyo+i][retu]==turn) {
+					for(int j=1;j+gyo<=reverseGyo;j++) {
+						vBanmen[gyo+j][retu]=turn;
+						reverseCount++;
+					}
+					reverseGyo=gyo;
+					reverseRetu=retu;
+					break;
+				}else {
+					reverseGyo++;
+					continue;
+				}
+			}
+			//上
+			reverseGyo=gyo;
+			reverseRetu=retu;
+			for(int i=1;gyo-i>=0;i++) {
+				if(vBanmen[gyo-i][retu]==0) {
+					break;
+				}else if(vBanmen[gyo-i][retu]==turn) {
+					for(int j=1;gyo-j>=reverseGyo;j++) {
+						vBanmen[gyo-j][retu]=turn;
+						reverseCount++;
+					}
+					break;
+				}else {
+					reverseGyo--;
+					continue;
+				}
+			}
+			//右
+			reverseGyo=gyo;
+			reverseRetu=retu;
+			for(int i=1;retu+i<8;i++) {
+				if(vBanmen[gyo][retu+i]==0) {
+					break;
+				}else if(vBanmen[gyo][retu+i]==turn) {
+					for(int j=1;retu+j<=reverseRetu;j++) {
+						vBanmen[gyo][retu+j]=turn;
+						reverseCount++;
+					}
+					break;
+				}else {
+					reverseRetu++;
+					continue;
+				}
+			}
+			//左
+			reverseGyo=gyo;
+			reverseRetu=retu;
+			for(int i=1;retu-i>=0;i++) {
+				if(vBanmen[gyo][retu-i]==0) {
+					break;
+				}else if(vBanmen[gyo][retu-i]==turn) {
+					for(int j=1;retu-j>=reverseRetu;j++) {
+						vBanmen[gyo][retu-j]=turn;
+						reverseCount++;
+					}
+					break;
+				}else {
+					reverseRetu--;
+					continue;
+				}
+			}
+			//右下
+			reverseGyo=gyo;
+			reverseRetu=retu;
+			for(int i=1;gyo+i<8&&retu+i<8;i++) {
+				if(vBanmen[gyo+i][retu+i]==0) {
+					break;
+				}else if(vBanmen[gyo+i][retu+i]==turn) {
+					for(int j=1;j+gyo<=reverseGyo;j++) {
+						vBanmen[gyo+j][retu+j]=turn;
+						reverseCount++;
+					}
+					break;
+				}else {
+					reverseGyo++;
+					reverseRetu++;
+					continue;
+				}
+			}
+			//左上
+			reverseGyo=gyo;
+			reverseRetu=retu;
+			for(int i=1;gyo-i>=0&&retu-i>=0;i++) {
+				if(vBanmen[gyo-i][retu-i]==0) {
+					break;
+				}else if(vBanmen[gyo-i][retu-i]==turn) {
+					for(int j=1;gyo-j>=reverseGyo;j++) {
+						vBanmen[gyo-j][retu-j]=turn;
+						reverseCount++;
+					}
+					break;
+				}else {
+					reverseGyo--;
+					reverseRetu--;
+					continue;
+				}
+			}
+			//右上
+			reverseGyo=gyo;
+			reverseRetu=retu;
+			for(int i=1;gyo-i>=0&&retu+i<8;i++) {
+				if(vBanmen[gyo-i][retu+i]==0) {
+					break;
+				}else if(vBanmen[gyo-i][retu+i]==turn) {
+					for(int j=1;gyo-j>=reverseGyo;j++) {
+						vBanmen[gyo-j][retu+j]=turn;
+						reverseCount++;
+					}
+					break;
+				}else {
+					reverseGyo--;
+					reverseRetu++;
+					continue;
+				}
+			}
+			//左下
+			reverseGyo=gyo;
+			reverseRetu=retu;
+			for(int i=1;gyo+i<8&&retu-i>=0;i++) {
+				if(vBanmen[gyo+i][retu-i]==0) {
+					break;
+				}else if(vBanmen[gyo+i][retu-i]==turn) {
+					for(int j=1;gyo+j<=reverseGyo;j++) {
+						vBanmen[gyo+j][retu-j]=turn;
+						reverseCount++;
+					}
+					break;
+				}else {
+					reverseGyo++;
+					reverseRetu--;
+					continue;
+				}
+			}
+			if(reverseCount>0) {
+				ArrayList<Integer>gyoretu=new ArrayList<>();
+				gyoretu.add(gyo);
+				gyoretu.add(retu);
+				gyoretu.add(reverseCount);
+				canPut.add(gyoretu);
+			}
+		}
+		return canPut;
+	}
+
 	public ArrayList<ArrayList<Integer>> getCanPut(int[][]banmen) {
 		ArrayList<ArrayList<Integer>> emptyList=new ArrayList<>();
 		for(int i=0;i<8;i++) {
@@ -927,178 +1104,6 @@ public class OthelloJSP {
 				}else if(banmen[gyo+i][retu-i]==turn) {
 					for(int j=1;gyo+j<=reverseGyo;j++) {
 						banmen[gyo+j][retu-j]=turn;
-						reverseCount++;
-					}
-					break;
-				}else {
-					reverseGyo++;
-					reverseRetu--;
-					continue;
-				}
-			}
-			if(reverseCount>0) {
-				ArrayList<Integer>gyoretu=new ArrayList<>();
-				gyoretu.add(gyo);
-				gyoretu.add(retu);
-				gyoretu.add(reverseCount);
-				canPut.add(gyoretu);
-			}
-		}
-		return canPut;
-	}
-
-
-	public ArrayList<ArrayList<Integer>> vReverse(int[][]vBanmen) {
-		ArrayList<ArrayList<Integer>> emptyList=new ArrayList<>();
-		for(int i=0;i<8;i++) {
-			for(int j=0;j<8;j++) {
-				if(vBanmen[i][j]==0) {
-					ArrayList<Integer> subEmptyList=new ArrayList<>();
-					subEmptyList.add(i);
-					subEmptyList.add(j);
-					emptyList.add(subEmptyList);
-				}
-			}
-		}
-		ArrayList<ArrayList<Integer>>canPut=new ArrayList<>();
-		for(ArrayList<Integer> emp:emptyList) {
-			int[][]cBanmen=cloneBanmen(vBanmen);
-			int reverseCount=0;
-			int gyo=emp.get(0);
-			int retu=emp.get(1);
-			int reverseGyo=gyo;
-			int reverseRetu=retu;
-			//下
-			for(int i=1;gyo+i<8;i++) {
-				if(cBanmen[gyo+i][retu]==0) {
-					break;
-				}else if(cBanmen[gyo+i][retu]==turn) {
-					for(int j=1;j+gyo<=reverseGyo;j++) {
-						cBanmen[gyo+j][retu]=turn;
-						reverseCount++;
-					}
-					reverseGyo=gyo;
-					reverseRetu=retu;
-					break;
-				}else {
-					reverseGyo++;
-					continue;
-				}
-			}
-			//上
-			reverseGyo=gyo;
-			reverseRetu=retu;
-			for(int i=1;gyo-i>=0;i++) {
-				if(cBanmen[gyo-i][retu]==0) {
-					break;
-				}else if(cBanmen[gyo-i][retu]==turn) {
-					for(int j=1;gyo-j>=reverseGyo;j++) {
-						cBanmen[gyo-j][retu]=turn;
-						reverseCount++;
-					}
-					break;
-				}else {
-					reverseGyo--;
-					continue;
-				}
-			}
-			//右
-			reverseGyo=gyo;
-			reverseRetu=retu;
-			for(int i=1;retu+i<8;i++) {
-				if(cBanmen[gyo][retu+i]==0) {
-					break;
-				}else if(cBanmen[gyo][retu+i]==turn) {
-					for(int j=1;retu+j<=reverseRetu;j++) {
-						cBanmen[gyo][retu+j]=turn;
-						reverseCount++;
-					}
-					break;
-				}else {
-					reverseRetu++;
-					continue;
-				}
-			}
-			//左
-			reverseGyo=gyo;
-			reverseRetu=retu;
-			for(int i=1;retu-i>=0;i++) {
-				if(cBanmen[gyo][retu-i]==0) {
-					break;
-				}else if(cBanmen[gyo][retu-i]==turn) {
-					for(int j=1;retu-j>=reverseRetu;j++) {
-						cBanmen[gyo][retu-j]=turn;
-						reverseCount++;
-					}
-					break;
-				}else {
-					reverseRetu--;
-					continue;
-				}
-			}
-			//右下
-			reverseGyo=gyo;
-			reverseRetu=retu;
-			for(int i=1;gyo+i<8&&retu+i<8;i++) {
-				if(cBanmen[gyo+i][retu+i]==0) {
-					break;
-				}else if(cBanmen[gyo+i][retu+i]==turn) {
-					for(int j=1;j+gyo<=reverseGyo;j++) {
-						cBanmen[gyo+j][retu+j]=turn;
-						reverseCount++;
-					}
-					break;
-				}else {
-					reverseGyo++;
-					reverseRetu++;
-					continue;
-				}
-			}
-			//左上
-			reverseGyo=gyo;
-			reverseRetu=retu;
-			for(int i=1;gyo-i>=0&&retu-i>=0;i++) {
-				if(cBanmen[gyo-i][retu-i]==0) {
-					break;
-				}else if(cBanmen[gyo-i][retu-i]==turn) {
-					for(int j=1;gyo-j>=reverseGyo;j++) {
-						cBanmen[gyo-j][retu-j]=turn;
-						reverseCount++;
-					}
-					break;
-				}else {
-					reverseGyo--;
-					reverseRetu--;
-					continue;
-				}
-			}
-			//右上
-			reverseGyo=gyo;
-			reverseRetu=retu;
-			for(int i=1;gyo-i>=0&&retu+i<8;i++) {
-				if(cBanmen[gyo-i][retu+i]==0) {
-					break;
-				}else if(cBanmen[gyo-i][retu+i]==turn) {
-					for(int j=1;gyo-j>=reverseGyo;j++) {
-						cBanmen[gyo-j][retu+j]=turn;
-						reverseCount++;
-					}
-					break;
-				}else {
-					reverseGyo--;
-					reverseRetu++;
-					continue;
-				}
-			}
-			//左下
-			reverseGyo=gyo;
-			reverseRetu=retu;
-			for(int i=1;gyo+i<8&&retu-i>=0;i++) {
-				if(cBanmen[gyo+i][retu-i]==0) {
-					break;
-				}else if(cBanmen[gyo+i][retu-i]==turn) {
-					for(int j=1;gyo+j<=reverseGyo;j++) {
-						cBanmen[gyo+j][retu-j]=turn;
 						reverseCount++;
 					}
 					break;

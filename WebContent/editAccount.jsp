@@ -7,12 +7,11 @@
 <title>kenTalk/アカウント編集</title>
 </head>
 <body>
-<form action="EditAccount" method="post">
-名前<input type="text" name="newName"></br>
-年齢<input type="text" name="newAge"></br>
-趣味<input type="text" name="newHobby"></br>
+<form action="editAccount" method="post">
+name<input type="text" name="name"></br>
+age<input type="text" name="age"></br>
+hobby<input type="text" name="hobby"></br>
 <input type="submit" value="更新">
 </form>
-<a href="MyPage">マイページへ</a>
 </body>
 </html>

@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ page import="javaBeans.Account,java.util.ArrayList" %>
 <%
+
 String friend=(String)request.getAttribute("friend");
 System.out.println("friendPage.jsp:"+friend);
 Account account=(Account)session.getAttribute("account");

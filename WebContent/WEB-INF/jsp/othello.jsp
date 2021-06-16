@@ -29,9 +29,9 @@ player2 = "白:player2";
 }
 String player = (String) request.getAttribute("player");
 if (request.getAttribute("gyo") != null && request.getAttribute("retu") != null) {
-gyo = (int) request.getAttribute("gyo");
-retu = (int) request.getAttribute("retu");
-}
+		gyo = (Integer) request.getAttribute("gyo");
+		retu = (Integer) request.getAttribute("retu");
+	}
 %>
 <%
 			for (int i = 0; i < 8; i++) {

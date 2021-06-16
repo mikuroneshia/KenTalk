@@ -7,7 +7,7 @@
 <title>kenTalk/ログイン失敗</title>
 </head>
 <body>
-データベースに名前がありません。</br>
+データベースに一致する名前とパスワードがありません。</br>
 ログインに失敗しました。</br>
 <a href="/kenTalk/Login">ログイン画面へ</a>
 </body>

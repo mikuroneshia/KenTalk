@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +49,9 @@ public class GroupTalk extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String f=request.getParameter("name");
+		//String f=request.getParameter("name");
+		String f=new String(request.getParameter("name").getBytes("ISO-8859-1"));
+		f=URLDecoder.decode(f,"UTF-8");
 		String sentense=request.getParameter("sentense");
 		Date date=new Date();
 		SimpleDateFormat format=new SimpleDateFormat("yyyy/MM/dd HH:mm");

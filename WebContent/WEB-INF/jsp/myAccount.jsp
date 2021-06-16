@@ -10,11 +10,12 @@
 </head>
 <body>
 <h1>アカウント情報</h1>
-name <%=account.getName() %></br>
-age <%=account.getAge() %></br>
-birthplace <%=account.getBirthplace() %></br>
-birthday <%=account.getBirthday() %></br>
-hobby <%=account.getHobby() %></br>
-<a href="EditAccount">アカウント編集</a>
+名前 <%=account.getName() %></br>
+年齢 <%=account.getAge() %></br>
+出身地 <%=account.getBirthplace() %></br>
+生年月日 <%=account.getBirthday() %></br>
+趣味 <%=account.getHobby() %></br>
+<a href="EditAccount">アカウント編集</a><br/>
+<a href="MyPage">マイページへ</a>
 </body>
 </html>
